@@ -1,6 +1,6 @@
-# NBA statistics website
+# NBA statistics website <i>(in progress)</i>
 
-<strong>Full-stack web application using Fast API and React<strong/>
+<strong>Full-stack web application using Fast API and React</strong>
 
 ### Autocomplete search
 
