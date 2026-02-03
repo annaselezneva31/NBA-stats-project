@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Spinner from "react-bootstrap/Spinner";
-import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -59,7 +58,7 @@ function PlayerById() {
   }, []);
 
   useEffect(() => {
-    if (!teamForChart?.id || !typeOfSeason || !seasonYear) return;
+    if (!teamForChart?.id || !seasonYear) return;
 
     fetchPlayerShotChart(params.id, seasonYear, teamForChart.id, typeOfSeason);
   }, [typeOfSeason, seasonYear, teamForChart?.id]);
@@ -86,33 +85,30 @@ function PlayerById() {
 
   return (
     <div>
-      {/* <Stack direction="horizontal" gap={3}>
-        <PlayerCard info={info} />
-        <PlayerStats stats={playerStats} />
-      </Stack> */}
-
       <Container className="py-3">
-        <Row className="g-4">
+        <Row className="g-4 ">
           {/* Player Card: left 25% on desktop, full width on mobile */}
-          <Col xxs={12} md={12} lg={3}>
+          <Col xxl={3}>
             <PlayerCard info={commonInfo} />
           </Col>
 
-          {/* Player Stats: right 75% on desktop, full width on mobile */}
-          <Col xxs={12} md={12} lg={9}>
+          {/* Player Stats and PlayerShotChart: right 75% on desktop, full width on mobile */}
+          <Col xxl={9}>
             <PlayerStats
               stats={playerStats}
               loadNewShotChart={loadNewShotChartData}
             />
+            <br />
+            <PlayerShotChart
+              playerShotChart={playerShotChart}
+              teams={teamsOfPlayer}
+              isChartLoading={isChartLoading}
+              chooseTeamFunc={chooseTeamFunc}
+            />
           </Col>
         </Row>
       </Container>
-      <PlayerShotChart
-        playerShotChart={playerShotChart}
-        teams={teamsOfPlayer}
-        isChartLoading={isChartLoading}
-        chooseTeamFunc={chooseTeamFunc}
-      />
+
       {isLoading && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>

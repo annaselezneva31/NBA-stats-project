@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Form } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import HexbinShotChart from "./graphs/HexbinShotChart";
-import ScatterPlot from "./graphs/TestD3";
-import * as d3 from "d3";
+import Spinner from "react-bootstrap/Spinner";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+
+import ScatterPlot from "./graphs/ScatterPlot";
+import WithFlagHexbinShotCart from "./graphs/WithFlagHexbinShotCart";
+import DensityShotChart from "./graphs/DensityShotChart";
 
 const PlayerShotChart = ({
   playerShotChart,
@@ -12,12 +15,16 @@ const PlayerShotChart = ({
   isChartLoading,
   chooseTeamFunc,
 }) => {
-  const [teamIdForChart, setTeamIdForChart] = useState(teams[0]?.id);
+  const [teamIdForChart, setTeamIdForChart] = useState(teams[0]?.id || null);
+  const shotData = useMemo(
+    () => playerShotChart?.shot_data || [],
+    [playerShotChart],
+  );
 
   useEffect(() => {
     if (!teams) return;
 
-    const selectedTeam = teams?.find(
+    const selectedTeam = teams.find(
       (team) => team.id === Number(teamIdForChart),
     );
     if (selectedTeam) {
@@ -25,22 +32,50 @@ const PlayerShotChart = ({
     }
   }, [teams, teamIdForChart]);
 
-  // const [data, setData] = useState(() => d3.ticks(-2, 2, 200).map(Math.sin));
+  const renderContent = () => {
+    if (isChartLoading) {
+      return (
+        <div style={{ display: "flex", justifyContent: "center", margin: 50 }}>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      );
+    }
 
-  // function onMouseMove(event) {
-  //   const [x, y] = d3.pointer(event);
-  //   setData(data.slice(-200).concat(Math.atan2(x, y)));
-  // }
+    if (!shotData.length) {
+      return (
+        <div style={{ display: "flex", justifyContent: "center", margin: 50 }}>
+          <strong>No data was found</strong>
+        </div>
+      );
+    }
 
-  // console.log(teams);
-  // console.log(teamIdForChart);
-  console.log(playerShotChart);
+    return (
+      <Tabs
+        defaultActiveKey="Frequency"
+        id="shot-chart-tabs"
+        className="mb-3"
+        mountOnEnter
+      >
+        <Tab eventKey="Frequency" title="Frequency of shots">
+          <DensityShotChart data={shotData} />
+        </Tab>
+        <Tab eventKey="missesBuckets" title="Misses & Buckets">
+          <ScatterPlot data={shotData} />
+        </Tab>
+        <Tab eventKey="FrequencyFG" title="Frequency and FG%">
+          <WithFlagHexbinShotCart data={shotData} />
+        </Tab>
+      </Tabs>
+    );
+  };
 
   return (
     <div>
       <Card>
         <Card.Body>
-          <Card.Title>Shot Chart</Card.Title>
+          <Card.Title>Shot Charts</Card.Title>
           <Card.Text>
             {teams.length > 1 && (
               <Form.Select
@@ -58,14 +93,7 @@ const PlayerShotChart = ({
             )}
           </Card.Text>
         </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroup.Item>
-            <HexbinShotChart shotData={playerShotChart["shot_data"]} />
-            <ScatterPlot data={playerShotChart["shot_data"]} />
-          </ListGroup.Item>
-          <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-          <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-        </ListGroup>
+        {renderContent()}
       </Card>
     </div>
   );
