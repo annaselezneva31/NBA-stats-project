@@ -59,8 +59,10 @@ const PlayerCard = ({ info }) => {
               <hr />
               <ListGroup className="list-group-flush">
                 <ListGroup.Item>
-                  Current team:{" "}
-                  <a href={`/teams/${commonInfo["TEAM_ID"]}`}>
+                  {commonInfo["ROSTERSTATUS"] === "Active"
+                    ? "Current team: "
+                    : "Last team: "}
+                  <a href={`/team/${commonInfo["TEAM_ID"]}`}>
                     {commonInfo["TEAM_CITY"] + " " + commonInfo["TEAM_NAME"]}
                   </a>
                   <br />
@@ -94,7 +96,7 @@ const PlayerCard = ({ info }) => {
                               <td>{row[7]}</td>
                               <td style={{ textAlign: "center" }}>{row[8]}</td>
                               <td>
-                                <a href={`/teams/${row[3]}`}>{row[6]}</a>
+                                <a href={`/team/${row[3]}`}>{row[6]}</a>
                               </td>
                             </tr>
                           );

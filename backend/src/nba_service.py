@@ -1,4 +1,4 @@
-from nba_client import NBAApiClient
+from src.nba_client import NBAApiClient
 
 class NBAService:
     def __init__(self):
@@ -14,7 +14,7 @@ class NBAService:
         return self.client.get_leader_board(season_user=season_user,
                                             season_type_user=season_type_user,
                                             stat_filter_user=stat_filter_user,
-                                            mode_user=mode_user)
+                                            mode_user=mode_user)['resultSet']
 
     def _get_player_all_stats(self, player_id: str):
         stats = self.client.get_player_stats(player_id)['resultSets']

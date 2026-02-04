@@ -130,7 +130,7 @@ const PlayerStats = ({ stats, loadNewShotChart }) => {
                           <td key={1}>
                             <a
                               href={
-                                row[3] !== 0 ? `/teams/${row[3]}` : undefined
+                                row[3] !== 0 ? `/team/${row[3]}` : undefined
                               }
                             >
                               {row[4]}

@@ -1,6 +1,31 @@
 import axios from "axios";
 
 export default class NBAService {
+  static async getListOfTeams() {
+    const response = await axios.get(`http://127.0.0.1:8000/api/v1/teams`);
+    return response.data;
+  }
+
+  static async getLeaderBoard(
+    season_user,
+    season_type_user,
+    stat_filter_user,
+    mode_user,
+  ) {
+    const response = await axios.get(
+      `http://127.0.0.1:8000/api/v1/leader_board`,
+      {
+        params: {
+          season_user,
+          season_type_user,
+          stat_filter_user,
+          mode_user,
+        },
+      },
+    );
+    return response.data;
+  }
+
   static async getListOfPlayers() {
     const response = await axios.get(`http://127.0.0.1:8000/api/v1/players`);
     return response.data;

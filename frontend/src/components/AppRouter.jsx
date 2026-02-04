@@ -8,7 +8,7 @@ const AppRouter = () => {
       {privateRoutes.map((route) => (
         <Route key={route.path} element={<route.element />} path={route.path} />
       ))}
-      <Route path="*" element={<Navigate to="/players" replace={true} />} />
+      <Route path="*" element={<Navigate to="/main" replace={true} />} />
     </Routes>
   );
 };

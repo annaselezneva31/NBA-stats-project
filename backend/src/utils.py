@@ -1,4 +1,5 @@
 import json
+import inspect
 
 from src.exceptions import NBAApiException
 
@@ -22,3 +23,8 @@ def error_handler(func):
         except NBAApiException:
             return {'error': f'{func.__name__}({", ".join(args)}) error'}
     return inner_func
+
+def inspect_class(nba_class):
+    attributes = inspect.getmembers(nba_class, lambda a: not (inspect.isroutine(a)))
+    params = [y for (x, y) in attributes if not ((x, y)[0].startswith('__') and (x, y)[0].endswith('__'))]
+    return params

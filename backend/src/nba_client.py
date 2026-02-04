@@ -1,6 +1,6 @@
 from nba_api.stats.endpoints import shotchartdetail, playercareerstats, commonplayerinfo, LeagueLeaders, teaminfocommon
 from nba_api.stats.static import players, teams
-from utils import error_handler
+from src.utils import error_handler
 
 custom_headers = {
     'Host': 'stats.nba.com',
@@ -63,5 +63,15 @@ class NBAApiClient:
                                    stat_category_abbreviation=stat_filter_user,
                                    per_mode48=mode_user,
                                    headers=custom_headers,
-                                   timeout=100).get_data_frames()
+                                   timeout=100)
         return response.get_dict()
+
+    # def schedule_page():
+    #     schedule_whole = nba_ep.ScheduleLeagueV2(season="2025-26").get_data_frames()
+    #     schedule = schedule_whole[0][
+    #         ["gameDate", "gameStatusText", "gameLabel", "arenaCity", "homeTeam_teamName", "awayTeam_teamName",
+    #          "homeTeam_score", "awayTeam_score"]]
+    #     return render_template("schedule.html",
+    #                            tables=[schedule.to_html(classes='table table-stripped hover order-column',
+    #                                                     index=False,
+    #                                                     table_id="data")])
