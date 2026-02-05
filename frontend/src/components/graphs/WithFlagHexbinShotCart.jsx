@@ -163,7 +163,7 @@ const WithFlagHexbinShotCart = ({ data }) => {
     // Legend title
     svg
       .append("text")
-      .text("Shot frequency") // title
+      .text("FG%") // title
       .attr("x", width - 490) // aligned with rectangle
       .attr("y", 25) // above the rectangle
       .attr("font-size", "18px")

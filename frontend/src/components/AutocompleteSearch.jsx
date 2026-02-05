@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 
-const AutocompleteSearch = ({ suggestions, searchFunc, param }) => {
+const AutocompleteSearch = ({ suggestions, searchFunc, param, onClose }) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [errorSearching, setErrorSearching] = useState("");
+
+  const wrapperRef = useRef(null);
+
+  // Sets up listener
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setFilteredSuggestions([]);
+        setInputValue("");
+        setErrorSearching("");
+        if (onClose) onClose(); // callback for dropdown
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose]);
 
   const handleChange = (event) => {
     const inputVal = event.target.value;
@@ -57,7 +72,12 @@ const AutocompleteSearch = ({ suggestions, searchFunc, param }) => {
   };
 
   return (
-    <Stack direction="vertical" gap={1} className="autocomplete-container">
+    <Stack
+      direction="vertical"
+      gap={1}
+      ref={wrapperRef}
+      className="autocomplete-container"
+    >
       <Stack direction="horizontal" gap={2}>
         <input
           className="autocomplete-input"

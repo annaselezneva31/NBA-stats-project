@@ -16,9 +16,9 @@ const NBANavbar = () => {
 
   const [showPlayers, setShowPlayers] = useState(false);
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" sticky="top">
+    <Navbar expand="md" className="bg-body-tertiary" sticky="top">
       <Container>
-        <Navbar.Brand href="/main">
+        <Navbar.Brand href="/main" className="d-flex align-items-center">
           <img
             src={nbaLogo}
             width="20"
@@ -30,16 +30,15 @@ const NBANavbar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             <Nav.Link href="/main">Home</Nav.Link>
             <Nav.Link href="/schedule">Schedule</Nav.Link>
             <Nav.Link href="/leaderboard">Leaders</Nav.Link>
-
             <NavDropdown
               title="Players"
               // id="basic-nav-dropdown"
               show={showPlayers}
-              rootClose={true}
+              rootclose={"true"}
               onToggle={(isOpen) => setShowPlayers(isOpen)}
               className="players-dropdown"
             >
@@ -50,6 +49,7 @@ const NBANavbar = () => {
                   router(`/player/${id}`);
                 }}
                 param="full_name"
+                onClose={() => setShowPlayers(false)} // close dropdown on click outside
               />
             </NavDropdown>
             <NavDropdown title="Teams" id="basic-nav-dropdown">
