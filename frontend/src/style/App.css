@@ -6,7 +6,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
@@ -17,12 +16,21 @@ body {
   position: relative;
   width: 100%;
   max-width: 400px;
-  margin: 20px;
 }
 
 .autocomplete-input {
   width: 100%;
   padding: 10px;
+  margin-right: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.autocomplete-button {
+  /* width: 100%; */
+  /* padding: 10px; */
   margin-right: 0 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -70,8 +78,20 @@ body {
 .career-highs-table thead tr th {
   position: sticky;
   top: 0;
-  background: white;
-  z-index: 1020;
+  z-index: 10;
   text-align: center;
   vertical-align: middle;
+}
+
+.players-dropdown .dropdown-menu {
+  width: 400px;
+  padding: 10px;
+  z-index: 1055;
+}
+
+.autocomplete-error {
+  color: red;
+  font-size: 0.9rem;
+  margin: 2px;
+  margin-bottom: 10px;
 }

@@ -1,33 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
 
-import { useFetching } from "../hooks/useFetching";
-import NBAService from "../API/NBAService";
 import AutocompleteSearch from "../components/AutocompleteSearch";
+import { Teams, Players } from "../context";
 
-const SearchPlayer = () => {
+const MainPage = () => {
   const router = useNavigate();
-  const [listOfPlayers, setListOfPlayers] = useState([]);
-  const [listOfTeams, setListOfTeams] = useState([]);
-  const [fetchListOfPlayers, isLoading, error] = useFetching(async () => {
-    const response = await NBAService.getListOfPlayers();
-    setListOfPlayers(response);
-  });
-
-  const [fetchListOfTeams, isTeamsLoading, errorTeams] = useFetching(
-    async () => {
-      const response = await NBAService.getListOfTeams();
-      setListOfTeams(response);
-    },
-  );
-
-  useEffect(() => {
-    fetchListOfPlayers();
-    fetchListOfTeams();
-  }, []);
-
-  // console.log(listOfTeams);
+  const listOfTeams = useContext(Teams);
+  const listOfPlayers = useContext(Players);
 
   return (
     <div>
@@ -65,4 +46,4 @@ const SearchPlayer = () => {
   );
 };
 
-export default SearchPlayer;
+export default MainPage;

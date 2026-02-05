@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 const LeaderBoardTable = ({ data }) => {
   return (
     <div>
-      <Table striped bordered hover size="sm" responsive>
+      <Table bordered hover size="sm" responsive>
         <thead>
           <tr>
             <th key={0}>#</th>

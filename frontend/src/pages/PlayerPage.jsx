@@ -55,7 +55,7 @@ function PlayerById() {
   useEffect(() => {
     fetchByPlayerId(params.id);
     fetchPlayerStats(params.id);
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     if (!teamForChart?.id || !seasonYear) return;
@@ -87,12 +87,9 @@ function PlayerById() {
     <div>
       <Container className="py-3">
         <Row className="g-4 ">
-          {/* Player Card: left 25% on desktop, full width on mobile */}
           <Col xxl={3}>
             <PlayerCard info={commonInfo} />
           </Col>
-
-          {/* Player Stats and PlayerShotChart: right 75% on desktop, full width on mobile */}
           <Col xxl={9}>
             <PlayerStats
               stats={playerStats}
