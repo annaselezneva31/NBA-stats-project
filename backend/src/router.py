@@ -1,10 +1,23 @@
 from fastapi import APIRouter
 
 from src.nba_service import NBAService
+from src.database.queries_db import QueriesDB
+from src.database.schemas import UserRegister, UserLogin
 
 
 nba_router = APIRouter()
 nba_service = NBAService()
+db = QueriesDB()
+
+
+@nba_router.post("/api/v1/register")
+async def register_new_user(user: UserRegister) -> dict:
+    user = await db.register_new_user(username=user.username, email=user.email, password=user.password)
+    return {"message": "User added", "id": user.id}
+
+@nba_router.post("/api/v1/login")
+async def login_user(user: UserLogin):
+    return await db.login_user(email=user.email, password=user.password)
 
 @nba_router.get("/api/v1/players")
 def get_list_of_players() -> list[dict]:

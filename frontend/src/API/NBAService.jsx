@@ -1,6 +1,30 @@
 import axios from "axios";
 
 export default class NBAService {
+  static async registerUser(username, email, password) {
+    const response = await axios.post(
+      `http://127.0.0.1:8000//api/v1/register`,
+      {
+        params: {
+          username,
+          email,
+          password,
+        },
+      },
+    );
+    return response.data;
+  }
+
+  static async loginUser(email, password) {
+    const response = await axios.post(`http://127.0.0.1:8000//api/v1/login`, {
+      params: {
+        email,
+        password,
+      },
+    });
+    return response.data;
+  }
+
   static async getListOfTeams() {
     const response = await axios.get(`http://127.0.0.1:8000/api/v1/teams`);
     return response.data;

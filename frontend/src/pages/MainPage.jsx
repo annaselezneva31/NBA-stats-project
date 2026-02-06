@@ -12,6 +12,7 @@ const MainPage = () => {
 
   return (
     <div>
+      <strong>Every rights belong to NBA</strong>
       <AutocompleteSearch
         suggestions={listOfPlayers}
         searchFunc={(id) => router(`/player/${id}`)}

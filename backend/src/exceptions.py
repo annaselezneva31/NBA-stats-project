@@ -1,11 +1,13 @@
 class NBAException(Exception):
-    pass
+    """Base class for all NBA API exceptions"""
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(message)
 
 
 class NBAApiException(NBAException):
     pass
 
-class NBAGameException(NBAException):
-    pass
-class NBAPlayerException(NBAException):
+class NBALoginException(NBAException):
+    """Raised for login/register errors"""
     pass

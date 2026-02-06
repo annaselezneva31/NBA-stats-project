@@ -25,7 +25,7 @@ const NBANavbar = () => {
             height="40"
             className="d-inline-block align-top"
             alt=""
-          />{" "}
+          />
           NBA Statistics
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -62,7 +62,7 @@ const NBANavbar = () => {
               })}
             </NavDropdown>
             <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/login">Log In</Nav.Link>
+            <Nav.Link href="/login">Log In / Sign Up</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
