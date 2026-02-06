@@ -77,12 +77,4 @@ class QueriesDB:
             return {'login': True, 'message': 'User is logged in', 'id': user.id}
 
 
-# async def main():
-#     db = QueriesDB()
-#     await db.create_tables()
-#     await db.add_first_user()
-#     await db.add_user(username="anna", email="anna.sel@gel.ru", password="436456")
-#     print("Tables created and first two users added!")
-#
-# if __name__ == '__main__':
-#     asyncio.run(main())
+
